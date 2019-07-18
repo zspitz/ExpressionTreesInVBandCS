@@ -44,8 +44,6 @@ namespace CSharp {
             }
         }
 
-
-
         /**
          * <summary>
          * Builds the expression tree of a lambda with the following code<br/><br/>

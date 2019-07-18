@@ -5,7 +5,7 @@ namespace Utils {
     public class Person {
         public string LastName { get; set; }
         public string FirstName { get; set; }
-        public ICollection<Trip> Trips { get; set; }
+        public IEnumerable<Trip> Trips { get; set; }
         public void Write() => Console.WriteLine($"LastName: {LastName}, FirstName: {FirstName}");
     }
 
