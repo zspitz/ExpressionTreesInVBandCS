@@ -1,0 +1,4 @@
+﻿<Window x:Class="CSharp_SetColumns.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Main window" Height="450" Width="800">
+    <DataGrid Name="dg" AutoGenerateColumns="False" />
+</Window>
