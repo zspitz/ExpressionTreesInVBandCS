@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ExpressionTreeToString" Version="1.4.63" />
-    <PackageReference Include="Simple.OData.V4.Client" Version="5.8.0" />
+    <PackageReference Include="ExpressionTreeToString" Version="1.5.67" />
+    <PackageReference Include="Simple.OData.V4.Client" Version="5.8.1" />
   </ItemGroup>
 
   <ItemGroup>

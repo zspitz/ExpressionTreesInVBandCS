@@ -8,18 +8,15 @@ Imports Simple.OData.Client
 
 Module Program
     Sub Main(args As String())
-        SimpleODataClient()
-        DrawLine()
-
-        HourMessage()
-        DrawLine()
+        RunSample(Sub() SimpleODataClient())
+        RunSample(Sub() HourMessage())
     End Sub
 
     ''' <summary>Constructing OData web requests using expression trees and the Simple.OData.Client library</summary>
     Sub SimpleODataClient()
         Dim client = New ODataClient("https://services.odata.org/v4/TripPinServiceRW/")
 
-        Dim command As IBoundClient(Of Person) = client.For(Of Person).
+        Dim command = client.For(Of Person).
             Filter(Function(x) x.Trips.Any(Function(y) y.Budget > 3000)).
             Top(2).
             Select(Function(x) New With {x.LastName, x.FirstName})
