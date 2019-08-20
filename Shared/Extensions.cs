@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Utils {
+namespace Shared {
     public static class Extensions {
         /// <summary>Enables using a collection initializer with a List&lt;Person&gt;</summary>
         public static void Add(this List<Person> lst, int ID, string firstname, string lastname, string email, string birthdate) => lst.Add(new Person {

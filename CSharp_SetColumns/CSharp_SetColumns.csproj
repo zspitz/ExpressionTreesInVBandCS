@@ -102,9 +102,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Utils\Utils.csproj">
-      <Project>{e4fd971f-bb89-4486-9918-bdf5801f6543}</Project>
-      <Name>Utils</Name>
+    <ProjectReference Include="..\Shared\_Shared.csproj">
+      <Project>{96069a1d-54e7-45b1-9179-c46e93d5719c}</Project>
+      <Name>_Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

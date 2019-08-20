@@ -1,6 +1,6 @@
 ﻿using System.Windows;
-using Utils;
-using static Utils.Globals;
+using Shared;
+using static Shared.Globals;
 
 namespace CSharp_SetColumns {
     /// <summary>

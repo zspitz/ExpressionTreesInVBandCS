@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using System.Windows.Controls;
 using System.Windows.Data;
 using static CSharp_SetColumns.Functions;
-using Utils;
+using Shared;
 
 namespace CSharp_SetColumns {
     public static class Extensions {

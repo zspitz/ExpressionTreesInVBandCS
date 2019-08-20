@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Utils;
+using Shared;
 
 namespace CSharp_SetColumns {
     public class XamlBindingPathVisitor : ExpressionVisitor {
-        private static HashSet<MethodInfo> stringFormats = typeof(string).GetMethods()
+        private static readonly HashSet<MethodInfo> stringFormats = typeof(string).GetMethods()
             .Where(x => {
                 if (x.Name != "Format") { return false; }
                 var parameters = x.GetParameters();
@@ -36,7 +36,7 @@ namespace CSharp_SetColumns {
                 isBindablePath =
                     node is MemberExpression ||
                     node is ParameterExpression || 
-                    (node is UnaryExpression uexpr && node.NodeType.In(ExpressionType.Convert, ExpressionType.ConvertChecked));
+                    (node is UnaryExpression && node.NodeType.In(ExpressionType.Convert, ExpressionType.ConvertChecked));
                 // TODO how can we separate between any ParameterExpression and the ParameterExpression defined by the current lambda?
 
                 if (firstVisit) {

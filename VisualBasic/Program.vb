@@ -2,8 +2,8 @@ Imports System
 Imports System.Linq.Expressions
 Imports System.Linq.Expressions.Expression
 Imports ExpressionToString
-Imports Utils
-Imports Utils.Methods
+Imports [Shared]
+Imports [Shared].Methods
 Imports Simple.OData.Client
 
 Module Program

@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Utils {
+namespace Shared {
     public static class Methods {
         public static void RunSample(Expression<Action> expr) {
             var body = expr.Body;
