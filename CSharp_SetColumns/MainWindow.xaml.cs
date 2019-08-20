@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using Utils;
 using static Utils.Globals;
 
@@ -23,11 +10,33 @@ namespace CSharp_SetColumns {
         public MainWindow() {
             InitializeComponent();
 
+            btnAnonymousType.Click += (s, e) => setAnonymousType();
+
+            btnArray.Click += (s, e) =>
+                dg.SetColumns((Person p) => new object[] { p.FirstName, p.LastName, p.DateOfBirth });
+
+            btnSingleProperty.Click += (s, e) =>
+                dg.SetColumns((Person p) => p.Email);
+
+            btnParameter.Click += (s, e) =>
+                dg.SetColumns((Person p) => p);
+
+            btnStringFormat.Click += (s, e) =>
+                dg.SetColumns((Person p) => new {
+                    p.ID,
+                    p.LastName,
+                    p.FirstName,
+                    UnformattedBirthDate = p.DateOfBirth,
+                    FormattedBirthDate = $"{p.DateOfBirth:D}"
+                });
+
+
             dg.ItemsSource = PersonList;
 
-            dg.SetColumns((Person p) => new { Number = p.ID, Last = p.LastName, First = p.FirstName });
+            setAnonymousType();
         }
 
-
+        void setAnonymousType() => dg.SetColumns((Person p) => new { Number = p.ID, Last = p.LastName, First = p.FirstName });
     }
+
 }
