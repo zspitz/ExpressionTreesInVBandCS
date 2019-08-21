@@ -43,5 +43,7 @@ namespace Shared {
 
         /// <summary>Returns True if the specified value matches any of the passed-in values</summary>
         public static bool In<T>(this T val, params T[] vals) => vals.Contains(val);
+        /// <summary>Returns True if the specified value doesn't match any of the passed-in values</summary>
+        public static bool NotIn<T>(this T val, params T[] vals) => !vals.Contains(val);
     }
 }
