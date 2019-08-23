@@ -5,39 +5,41 @@ Imports ExpressionToString
 Imports [Shared]
 Imports [Shared].Methods
 Imports Simple.OData.Client
+Imports System.Console
+Imports System.Reflection.BindingFlags
+Imports System.Reflection
 
 Module Program
     Sub Main(args As String())
-        RunSample(Sub() SimpleODataClient())
-        RunSample(Sub() HourMessage())
+        RunSample(Sub() Figure2_ExpressionsAsObjects())
+        RunSample(Sub() Figure5_BlocksAssignmentsStatements())
+        RunSample(Sub() Figure6_QueryableWhere())
+        RunSample(Sub() Inline_GetMethod())
+        'RunSample(Sub() Figure7_SimpleODataClient())
     End Sub
 
-    ''' <summary>Constructing OData web requests using expression trees and the Simple.OData.Client library</summary>
-    Sub SimpleODataClient()
-        Dim client = New ODataClient("https://services.odata.org/v4/TripPinServiceRW/")
-
-        Dim command = client.For(Of Person).
-            Filter(Function(x) x.Trips.Any(Function(y) y.Budget > 3000)).
-            Top(2).
-            Select(Function(x) New With {x.LastName, x.FirstName})
-
-        Dim commandText = Task.Run(Function() command.GetCommandTextAsync()).Result
-        Console.WriteLine(commandText)
-        Console.WriteLine()
-
-        Dim people = Task.Run(Function() command.FindEntriesAsync).Result
-        For Each p In people
-            p.Write()
-        Next
+    ''' <summary>Shows the objects in the expression tree for n + 42 == 27, using object and collection initializers</summary>
+    Sub Figure2_ExpressionsAsObjects()
+        Dim n = Parameter(GetType(Integer), "n")
+        Dim expr = Equal(
+            Add(
+                n,
+                Constant(42)
+            ),
+            Constant(27)
+        )
+        WriteLine(expr.ToString("Object notation", "Visual Basic"))
     End Sub
 
     ''' <summary>
     ''' Builds the expression tree of a lambda with the following code<br/><br/>
-    ''' Dim msg As String = "Hello"<br/>
+    ''' <code>
+    ''' Dim msg = "Hello"<br/>
     ''' If DateTime.Now.Hour > 18 Then msg = "Good night"<br/>
     ''' Console.WriteLine(msg)
+    ''' </code>
     ''' </summary>
-    Sub HourMessage()
+    Sub Figure5_BlocksAssignmentsStatements()
         Dim msg = Parameter(GetType(String), "msg") ' Dim msg As String
         Dim expr = Lambda( ' Function() ... End Function
             Block( ' The lambda contains multiple statements, so we need to wrap in a BlockExpression
@@ -62,6 +64,62 @@ Module Program
             )
         )
 
-        Console.WriteLine(expr.ToString("Visual Basic"))
+        WriteLine(expr.ToString("Visual Basic"))
+    End Sub
+
+    ''' <summary>Shows an expression tree before and after the call to Queryable.Where</summary>
+    Sub Figure6_QueryableWhere()
+        Dim expressionBeforeWhere As Expression(Of Func(Of Person, Boolean)) = Function(p) p.LastName.StartsWith("D")
+        WriteLine(expressionBeforeWhere.ToString("Textual tree", "Visual Basic"))
+        WriteLine()
+
+        Dim personSource = (New List(Of Person)).AsQueryable
+        Dim qry = personSource.Where(expressionBeforeWhere)
+        Dim expressionAfterWhere As Expression = qry.GetType().GetProperty("Expression", NonPublic Or Instance).GetValue(qry)
+        WriteLine(expressionAfterWhere.ToString("Textual tree", "Visual Basic"))
+    End Sub
+
+    ''' <summary>Use compiled expressions to target a specific MethodInfo, instead of reflection</summary>
+    Sub Inline_GetMethod()
+        Dim GetMethod As Func(Of Expression(Of Action), MethodInfo) = Function(expr) TryCast(expr.Body, MethodCallExpression)?.Method
+
+        Dim mi = GetMethod(Sub() WriteLine())
+
+        ' Without generics, this is simle enough to do with reflection:
+        WriteLine(mi =
+            GetType(Console).GetMethod("WriteLine", {})
+        )
+
+        ' But once generics are involved, it becomes much more complicated to get hold of a specific closed overload using reflection.
+        ' You have to find the method whose name Is "Where" And whose second parameter's type is Expression<Func<T, bool>>, and not Expression<Func<T, int, bool>>
+        ' Related: https : //github.com/dotnet/corefx/issues/16567 
+        Dim q As IQueryable(Of Person) = Nothing
+        mi = GetMethod(Sub() q.Where(Function(x) True))
+
+        WriteLine(mi =
+            GetType(Queryable).GetMethods().Single(Function(x)
+                                                       If x.Name <> "Where" Then Return False
+                                                       Return x.GetParameters(1).ParameterType.GetGenericArguments.Single.GetGenericArguments.Length = 2
+                                                   End Function).MakeGenericMethod(GetType(Person))
+        )
+    End Sub
+
+    ''' <summary>Constructing OData web requests using expression trees and the Simple.OData.Client library</summary>
+    Sub Figure7_SimpleODataClient()
+        Dim client = New ODataClient("https://services.odata.org/v4/TripPinServiceRW/")
+
+        Dim command = client.For(Of Person).
+            Filter(Function(x) x.Trips.Any(Function(y) y.Budget > 3000)).
+            Top(2).
+            Select(Function(x) New With {x.LastName, x.FirstName})
+
+        Dim commandText = Task.Run(Function() command.GetCommandTextAsync()).Result
+        WriteLine(commandText)
+        WriteLine()
+
+        Dim people = Task.Run(Function() command.FindEntriesAsync).Result
+        For Each p In people
+            p.Write()
+        Next
     End Sub
 End Module

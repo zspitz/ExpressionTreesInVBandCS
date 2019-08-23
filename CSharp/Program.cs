@@ -18,7 +18,7 @@ namespace CSharp {
             RunSample(() => Figure5_BlocksAssignmentsStatements());
             RunSample(() => Figure6_QueryableWhere());
             RunSample(() => Inline_GetMethod());
-            RunSample(() => Figure7_SimpleODataClient());
+            //RunSample(() => Figure7_SimpleODataClient());
         }
 
         /**
@@ -110,6 +110,7 @@ namespace CSharp {
             MethodInfo GetMethod(Expression<Action> expr) => (expr.Body as MethodCallExpression)?.Method;
 
             var mi = GetMethod(() => Console.WriteLine());
+
             // Without generics, this is simple enoguh to do with reflection:
             Console.WriteLine(mi == 
                 typeof(Console).GetMethod("WriteLine", new Type[] { })
@@ -128,9 +129,7 @@ namespace CSharp {
         }
 
         /**
-         * <summary>
-         * Constructing OData web requests using expression trees and the Simple.OData.Client library
-         * </summary>
+         * <summary>Constructing OData web requests using expression trees and the Simple.OData.Client library</summary>
          */
         public static void Figure7_SimpleODataClient() {
             var client = new ODataClient("https://services.odata.org/v4/TripPinServiceRW/");
