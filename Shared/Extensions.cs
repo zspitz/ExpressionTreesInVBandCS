@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -9,8 +10,8 @@ using System.Threading.Tasks;
 namespace Shared {
     public static class Extensions {
         /// <summary>Enables using a collection initializer with a List&lt;Person&gt;</summary>
-        public static void Add(this List<Person> lst, int ID, string firstname, string lastname, string email, string birthdate) => lst.Add(new Person {
-            ID = ID,
+        public static void Add(this List<Person> lst, int id, string firstname, string lastname, string email, string birthdate) => lst.Add(new Person {
+            ID = id,
             LastName = lastname,
             FirstName = firstname,
             Email = email,
@@ -43,7 +44,18 @@ namespace Shared {
 
         /// <summary>Returns True if the specified value matches any of the passed-in values</summary>
         public static bool In<T>(this T val, params T[] vals) => vals.Contains(val);
+
         /// <summary>Returns True if the specified value doesn't match any of the passed-in values</summary>
         public static bool NotIn<T>(this T val, params T[] vals) => !vals.Contains(val);
+
+        /// <summary>Visual Basic wraps a conversion around an innder node, when an inner node type inherits from / implements the expected node type.<br />This function returns a tuple of True and the inner node if that is the case; otherwise it returns False and the original node</summary>
+        // For example. see https://github.com/simple-odata-client/Simple.OData.Client/issues/638
+        public static (bool unwrapped, Expression final) SansDerivedConvert(this Expression expr) {
+            switch (expr) {
+                case UnaryExpression uexpr when expr.NodeType == ExpressionType.Convert && expr.Type.IsAssignableFrom(uexpr.Operand.Type):
+                    return (true, uexpr.Operand);
+            }
+            return (false, expr);
+        }
     }
 }

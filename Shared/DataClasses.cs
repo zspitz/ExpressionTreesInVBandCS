@@ -9,7 +9,7 @@ namespace Shared {
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
         public IEnumerable<Trip> Trips { get; set; }
-        public void Write() => Console.WriteLine($"LastName: {LastName}, FirstName: {FirstName}");
+        public void Write() => Console.WriteLine($"LastName: {LastName}, FirstName: {FirstName}, DOB: {DateOfBirth:D}");
     }
 
     public class Trip {
