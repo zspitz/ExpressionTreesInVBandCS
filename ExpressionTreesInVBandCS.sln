@@ -22,6 +22,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_InsertDataAndConnectionTes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp_LikeVisitor", "CSharp_LikeVisitor\CSharp_LikeVisitor.csproj", "{8BA113F8-608F-40B0-A275-813DA65A7BA7}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VisualBasic_LikeVisitor", "VisualBasic_LikeVisitor\VisualBasic_LikeVisitor.vbproj", "{06B2C3E7-74EC-4C92-BF33-0D7ABA5BDFA9}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VisualBasic_SetColumns", "VisualBasic_SetColumns\VisualBasic_SetColumns.vbproj", "{AEB6247D-FC34-4E84-9153-C09A3CE616DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +60,14 @@ Global
 		{8BA113F8-608F-40B0-A275-813DA65A7BA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BA113F8-608F-40B0-A275-813DA65A7BA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BA113F8-608F-40B0-A275-813DA65A7BA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06B2C3E7-74EC-4C92-BF33-0D7ABA5BDFA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06B2C3E7-74EC-4C92-BF33-0D7ABA5BDFA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06B2C3E7-74EC-4C92-BF33-0D7ABA5BDFA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06B2C3E7-74EC-4C92-BF33-0D7ABA5BDFA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEB6247D-FC34-4E84-9153-C09A3CE616DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEB6247D-FC34-4E84-9153-C09A3CE616DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEB6247D-FC34-4E84-9153-C09A3CE616DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEB6247D-FC34-4E84-9153-C09A3CE616DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

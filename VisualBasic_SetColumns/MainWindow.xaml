@@ -1,0 +1,14 @@
+﻿<Window x:Class="MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Main window" Height="450" Width="800">
+    <DockPanel>
+        <StackPanel Orientation="Vertical">
+            <Button Name="btnAnonymousType">Anonymous type</Button>
+            <Button Name="btnArray">Array</Button>
+            <Button Name="btnSingleProperty">Single property</Button>
+            <Button Name="btnParameter">Parameter</Button>
+            <Button Name="btnStringFormat">Formatted string</Button>
+        </StackPanel>
+
+        <DataGrid Name="dg" AutoGenerateColumns="False" />
+    </DockPanel>
+</Window>

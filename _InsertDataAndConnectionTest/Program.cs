@@ -12,10 +12,16 @@ namespace _InsertDataAndConnectionTest {
         static void Main(string[] args) {
             var conn = new SQLiteConnection($"Data Source={DbPath}");
             var ctx = new PeopleContext(conn);
-            var qry = ctx.Persons.Where(x => x.LastName.StartsWith("A"));
-            foreach (var p in qry) {
+
+            //ctx.Persons.RemoveRange(ctx.Persons);
+
+            //ctx.Persons.AddRange(PersonList);
+            //ctx.SaveChanges();
+
+            foreach (var p in ctx.Persons.Where(x => x.DateOfBirth < new DateTime(1930,1,1))) {
                 p.Write();
             }
+            Console.ReadKey(true);
         }
     }
 }
