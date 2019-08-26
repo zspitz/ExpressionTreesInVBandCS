@@ -8,14 +8,14 @@ The samples, in order of appearance in the article, are as follows:
 
 | Figure | Name/Description | Location |
 | --- | --- | --- |
-| **Figure 2** | **Expression Tree Objects Using Object Notation**<br/>Shows an expression tree using object and collection initialization syntax | `CSharp`<br/>`VisualBasic` |
-| **Figure 3** | **NodeType, Value, Name properties**<br/>Shows the properties relevant to understanding the structure of an expression tree | `CSharp`<br/>`VisualBasic` |
-| **Figure 5** | **Blocks, Assignments and Statements in Expression Trees**<br/>Constructs an expression tree using factory methods, interspersed with the corresponding code in comments | `CSharp`<br/>`VisualBasic` |
-| **Figure 6** | **Visualization of Final Expression Tree**<br/>Demonstrates what an expression tree looks like before and after a call to `Queryable.Where` | `CSharp`<br/>`VisualBasic` |
+| **2** | **Expression Tree Objects Using Object Notation**<br/>Shows an expression tree using object and collection initialization syntax | `CSharp`<br/>`VisualBasic` |
+| **3** | **NodeType, Value, Name properties**<br/>Shows the properties relevant to understanding the structure of an expression tree | `CSharp`<br/>`VisualBasic` |
+| **5** | **Blocks, Assignments and Statements in Expression Trees**<br/>Constructs an expression tree using factory methods, interspersed with the corresponding code in comments | `CSharp`<br/>`VisualBasic` |
+| **6** | **Visualization of Final Expression Tree**<br/>Demonstrates what an expression tree looks like before and after a call to `Queryable.Where` | `CSharp`<br/>`VisualBasic` |
 | | **`GetMethod` -- Reflection by Example**<br/>Uses an expression tree to target a specific MethodInfo instead of reflection | `CSharp`<br/>`VisualBasic` |
 | | **Grid Column Configuration**<br/>Declaratively set the columns of a WPF `DataGrid` using an appropriate expression | `CSharp_SetColumns`<br/>`VisualBasic_SetColumns` |
-| **Figure 7** | **Requests Using the Simple.OData.Client Library and Expression Trees** | `CSharp`<br/>`VisualBasic` |
-| **Figure 8** | **ExpressionTreeVisitor Replacing Visual Basic's `Like` with `DbFunctions.Like`** | `CSharp_LikeVisitor`<br/>`VisualBasic_LikeVisitor` |
+| **7** | **Requests Using the Simple.OData.Client Library and Expression Trees** | `CSharp`<br/>`VisualBasic` |
+| **8** | **ExpressionTreeVisitor Replacing Visual Basic's `Like` with `DbFunctions.Like`** | `CSharp_LikeVisitor`<br/>`VisualBasic_LikeVisitor` |
 
 ## Description of the project structure 
 
