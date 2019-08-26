@@ -7,12 +7,12 @@ using static System.Linq.Expressions.Expression;
 
 namespace CSharp_LikeVisitor {
     public class LikeVisitor : ExpressionVisitor {
-        static MethodInfo[] likeMethods = new[] {
+        static readonly MethodInfo[] likeMethods = new[] {
             typeof(LikeOperator).GetMethod("LikeString"),
             typeof(LikeOperator).GetMethod("LikeObject")
         };
 
-        static MethodInfo dbfunctionsLike = typeof(DbFunctions).GetMethod("Like", new[] { typeof(string), typeof(string) });
+        static readonly MethodInfo dbfunctionsLike = typeof(DbFunctions).GetMethod("Like", new[] { typeof(string), typeof(string) });
 
         protected override Expression VisitMethodCall(MethodCallExpression node) {
             // Is this node using the LikeString or LikeObject method? If not, leave it alone.
@@ -53,7 +53,7 @@ namespace CSharp_LikeVisitor {
             return Call(
                 dbfunctionsLike,
                 Visit(node.Arguments[0]),
-                Visit(patternExpression)
+                Visit(argExpression)
             );
         }
     }

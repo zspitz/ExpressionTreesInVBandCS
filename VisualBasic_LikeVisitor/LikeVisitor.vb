@@ -5,12 +5,12 @@ Imports Microsoft.VisualBasic.CompilerServices
 Public Class LikeVisitor
     Inherits ExpressionVisitor
 
-    Shared LikeMethods() As MethodInfo = {
+    Shared ReadOnly LikeMethods() As MethodInfo = {
         GetType(LikeOperator).GetMethod("LikeString"),
         GetType(LikeOperator).GetMethod("LikeObject")
     }
 
-    Shared DbFunctionsLike As MethodInfo = GetType(DbFunctions).GetMethod("Like", {GetType(String), GetType(String)})
+    Shared ReadOnly DbFunctionsLike As MethodInfo = GetType(DbFunctions).GetMethod("Like", {GetType(String), GetType(String)})
 
     Protected Overrides Function VisitMethodCall(node As MethodCallExpression) As Expression
         ' Is this node using the LikeString or LikeObject method? If not, leave it alone.

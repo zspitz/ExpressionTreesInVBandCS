@@ -13,8 +13,6 @@ namespace Shared {
         public PeopleContext(DbConnection conn) : base(conn, true) {}
         public DbSet<Person> Persons { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder) {
-            modelBuilder.Entity<Person>().ToTable("Persons");
-        }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder) => modelBuilder.Entity<Person>().ToTable("Persons");
     }
 }

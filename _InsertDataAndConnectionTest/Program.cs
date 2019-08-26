@@ -9,19 +9,19 @@ using static Shared.Globals;
 
 namespace _InsertDataAndConnectionTest {
     class Program {
-        static void Main(string[] args) {
+        public static void Main() {
             var conn = new SQLiteConnection($"Data Source={DbPath}");
-            var ctx = new PeopleContext(conn);
+            using (var ctx = new PeopleContext(conn)) {
+                //ctx.Persons.RemoveRange(ctx.Persons);
 
-            //ctx.Persons.RemoveRange(ctx.Persons);
+                //ctx.Persons.AddRange(PersonList);
+                //ctx.SaveChanges();
 
-            //ctx.Persons.AddRange(PersonList);
-            //ctx.SaveChanges();
-
-            foreach (var p in ctx.Persons.Where(x => x.DateOfBirth < new DateTime(1930,1,1))) {
-                p.Write();
+                foreach (var p in ctx.Persons.Where(x => x.DateOfBirth < new DateTime(1930, 1, 1))) {
+                    p.Write();
+                }
+                Console.ReadKey(true);
             }
-            Console.ReadKey(true);
         }
     }
 }
