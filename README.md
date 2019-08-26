@@ -28,7 +28,7 @@ The project structure is as follows:
 | `_Shared` | Contains shared code used by multiple samples, e.g. data classes and extensions |
 | `_Shared.EF6` | Some of the samples use EF6.  This project contains the `DbContext` and configuration classes |
 | `CSharp`<br/>`VisualBasic` | Short samples encapsulated in a single method |
-| `CSharp_SetColumn`<br/>`VisualBasic_SetColumn` | <ul><li>Implements declaratively setting columns on a WPF DataGrid in code, using expression trees</li><li>`ParseFields` -- Parses the intended columns from an expression returning an array, anonymous type, or single property</li><li>`XamlBindingPathVisitor` -- Expression visitor that generates an object path usable with WPF databinding</li></ul><br/> |
+| `CSharp_SetColumn`<br/>`VisualBasic_SetColumn` | <ul><li>Implements declaratively setting columns on a WPF DataGrid in code, using expression trees</li><li>`ParseFields` -- Parses the intended columns from an expression returning an array, anonymous type, or single property</li><li>`XamlBindingPathVisitor` -- Expression visitor that generates an object path usable with WPF databinding</li></ul> |
 | `CSharp_LikeVisitor`<br/>`VisualBasic_LikeVisitor` | Uses an expression visitor to rewrite Visual Basic's `Like` operator usages to EF's `DbFunctions.Like` method. |
 
 ## TODO
