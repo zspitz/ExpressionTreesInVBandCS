@@ -15,26 +15,31 @@ namespace CSharp {
     class Program {
         static void Main(string[] args) {
             RunSample(() => Figure2_ExpressionsAsObjects());
+            RunSample(() => Figure3_NodetypeValueName());
             RunSample(() => Figure5_BlocksAssignmentsStatements());
             RunSample(() => Figure6_QueryableWhere());
-            RunSample(() => Inline_GetMethod());
             RunSample(() => Figure7_SimpleODataClient());
+            RunSample(() => Inline_GetMethod());
         }
 
-        /**
-         * <summary>Shows the objects in the expression tree for n + 42 == 27, using object and collection initializers</summary>
-         */
-        public static void Figure2_ExpressionsAsObjects() {
-            var n = Parameter(typeof(int), "n");
-            var expr = Equal(
+        private static readonly BinaryExpression simpleExpression =
+            Equal(
                 Add(
-                    n,
+                    Parameter(typeof(int), "n"),
                     Constant(42)
                 ),
                 Constant(27)
             );
-            Console.WriteLine(expr.ToString("Object notation"));
-        }
+
+        /**
+         * <summary>Shows the objects in the expression tree for n + 42 == 27, using object and collection initializers</summary>
+         */
+        public static void Figure2_ExpressionsAsObjects() => Console.WriteLine(simpleExpression.ToString("Object notation"));
+
+        /**
+         * <summary>Shows the NodeType, Value and Name properties for n + 42 == 27; useful for visualizing the expression tree's structure</summary>
+         */
+        public static void Figure3_NodetypeValueName() => Console.WriteLine(simpleExpression.ToString("Textual tree"));
 
         /**
          * <summary>
@@ -104,6 +109,28 @@ namespace CSharp {
         }
 
         /**
+         * <summary>Constructing OData web requests using expression trees and the Simple.OData.Client library</summary>
+         */
+        public static void Figure7_SimpleODataClient() {
+            var client = new ODataClient("https://services.odata.org/v4/TripPinServiceRW/");
+
+            var command = client.For<Person>()
+                .Filter(x => x.Trips.Any(y => y.Budget > 3000))
+                .Top(2)
+                .Select(x => new { x.FirstName, x.LastName });
+
+            var commandText = Task.Run(() => command.GetCommandTextAsync()).Result;
+            // Prints the generated relative URL
+            Console.WriteLine(commandText);
+            Console.WriteLine();
+
+            var people = Task.Run(() => command.FindEntriesAsync()).Result;
+            foreach (var p in people) {
+                p.Write();
+            }
+        }
+
+        /**
          * <summary>Use compiled expressions to target a specific MethodInfo, instead of reflection</summary>
          */
         public static void Inline_GetMethod() {
@@ -127,29 +154,5 @@ namespace CSharp {
                 }).MakeGenericMethod(typeof(Person))
             );
         }
-
-        /**
-         * <summary>Constructing OData web requests using expression trees and the Simple.OData.Client library</summary>
-         */
-        public static void Figure7_SimpleODataClient() {
-            var client = new ODataClient("https://services.odata.org/v4/TripPinServiceRW/");
-
-            var command = client.For<Person>()
-                .Filter(x => x.Trips.Any(y => y.Budget > 3000))
-                .Top(2)
-                .Select(x => new { x.FirstName, x.LastName });
-
-            var commandText = Task.Run(() => command.GetCommandTextAsync()).Result;
-            // Prints the generated relative URL
-            Console.WriteLine(commandText);
-            Console.WriteLine();
-
-            var people = Task.Run(() => command.FindEntriesAsync()).Result;
-            foreach (var p in people) {
-                p.Write();
-            }
-        }
-
-
     }
 }

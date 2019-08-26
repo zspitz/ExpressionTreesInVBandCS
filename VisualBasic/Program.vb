@@ -12,23 +12,30 @@ Imports System.Reflection
 Module Program
     Sub Main(args As String())
         RunSample(Sub() Figure2_ExpressionsAsObjects())
+        RunSample(Sub() Figure3_NodetypeValueName())
         RunSample(Sub() Figure5_BlocksAssignmentsStatements())
         RunSample(Sub() Figure6_QueryableWhere())
-        RunSample(Sub() Inline_GetMethod())
         RunSample(Sub() Figure7_SimpleODataClient())
+        RunSample(Sub() Inline_GetMethod())
     End Sub
 
-    ''' <summary>Shows the objects in the expression tree for n + 42 == 27, using object and collection initializers</summary>
-    Sub Figure2_ExpressionsAsObjects()
-        Dim n = Parameter(GetType(Integer), "n")
-        Dim expr = Equal(
+    Private ReadOnly simpleExpression As BinaryExpression =
+        Equal(
             Add(
-                n,
+                Parameter(GetType(Integer), "n"),
                 Constant(42)
             ),
             Constant(27)
         )
-        WriteLine(expr.ToString("Object notation", "Visual Basic"))
+
+    ''' <summary>Shows the objects in the expression tree for n + 42 == 27, using object and collection initializers</summary>
+    Sub Figure2_ExpressionsAsObjects()
+        WriteLine(simpleExpression.ToString("Object notation", "Visual Basic"))
+    End Sub
+
+    ''' <summary>Shows the NodeType, Value and Name properties for n + 42 == 27; useful for visualizing the expression tree's structure</summary>
+    Sub Figure3_NodetypeValueName()
+        WriteLine(simpleExpression.ToString("Textual tree", "Visual Basic"))
     End Sub
 
     ''' <summary>
@@ -79,6 +86,25 @@ Module Program
         WriteLine(expressionAfterWhere.ToString("Textual tree", "Visual Basic"))
     End Sub
 
+    ''' <summary>Constructing OData web requests using expression trees and the Simple.OData.Client library</summary>
+    Sub Figure7_SimpleODataClient()
+        Dim client = New ODataClient("https://services.odata.org/v4/TripPinServiceRW/")
+
+        Dim command = client.For(Of Person).
+            Filter(Function(x) x.Trips.Any(Function(y) y.Budget > 3000)).
+            Top(2).
+            Select(Function(x) New With {x.LastName, x.FirstName})
+
+        Dim commandText = Task.Run(Function() command.GetCommandTextAsync()).Result
+        WriteLine(commandText)
+        WriteLine()
+
+        Dim people = Task.Run(Function() command.FindEntriesAsync).Result
+        For Each p In people
+            p.Write()
+        Next
+    End Sub
+
     ''' <summary>Use compiled expressions to target a specific MethodInfo, instead of reflection</summary>
     Sub Inline_GetMethod()
         Dim GetMethod As Func(Of Expression(Of Action), MethodInfo) = Function(expr) TryCast(expr.Body, MethodCallExpression)?.Method
@@ -102,24 +128,5 @@ Module Program
                                                        Return x.GetParameters(1).ParameterType.GetGenericArguments.Single.GetGenericArguments.Length = 2
                                                    End Function).MakeGenericMethod(GetType(Person))
         )
-    End Sub
-
-    ''' <summary>Constructing OData web requests using expression trees and the Simple.OData.Client library</summary>
-    Sub Figure7_SimpleODataClient()
-        Dim client = New ODataClient("https://services.odata.org/v4/TripPinServiceRW/")
-
-        Dim command = client.For(Of Person).
-            Filter(Function(x) x.Trips.Any(Function(y) y.Budget > 3000)).
-            Top(2).
-            Select(Function(x) New With {x.LastName, x.FirstName})
-
-        Dim commandText = Task.Run(Function() command.GetCommandTextAsync()).Result
-        WriteLine(commandText)
-        WriteLine()
-
-        Dim people = Task.Run(Function() command.FindEntriesAsync).Result
-        For Each p In people
-            p.Write()
-        Next
     End Sub
 End Module
