@@ -17,7 +17,6 @@ namespace CSharp_SetColumns {
         /// If the expression is an anonymous type, the corresponding name for each expression is the initialized member. For other expressions, the name is a string rendering of the expression, based on the language parameter.
         /// </summary>
         /// <param name="language">Can be <code>"C#"</code> or <code>"Visual Basic"</code></param>
-        /// <returns></returns>
         public static List<(string name, Expression expr)> ParseFields<TSource, TResult>(Expression<Func<TSource, TResult>> fieldsExpression, string language = "C#") {
             var formatter =
                 language == "Visual Basic" ? language :
@@ -28,7 +27,7 @@ namespace CSharp_SetColumns {
 
                 // an array with elements
                 case NewArrayExpression newArrayExpr when body.NodeType == ExpressionType.NewArrayInit:
-                    return newArrayExpr.Expressions.Select((x, index) => ("", x)).ToList();
+                    return newArrayExpr.Expressions.Select(x => ("", x)).ToList();
 
                 // anonymous type
                 case NewExpression newExpr when newExpr.Type.IsAnonymous():

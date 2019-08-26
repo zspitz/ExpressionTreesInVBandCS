@@ -21,5 +21,13 @@ namespace Shared {
             Console.WriteLine("Press any key to proceed...");
             Console.ReadKey(true);
         }
+
+        /// <summary>This is a workaround for Visual Basic, which currently doesn't support pattern matching. Return False if the match has failed; if the action returns True or null, the match is considered to have succeeded.</summary>
+        public static bool ExecIfType<T>(object toTest, Func<T, bool?> action) {
+            if (!(toTest is T matched)) { return false; }
+            var ret = action(matched);
+            if (ret.HasValue && !ret.Value) { return false; }
+            return true;
+        }
     }
 }

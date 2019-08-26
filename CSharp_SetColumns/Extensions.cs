@@ -7,7 +7,7 @@ using Shared;
 
 namespace CSharp_SetColumns {
     public static class Extensions {
-        // We need the TResult parameter so the compiler can recognize the second parameter as an expression tree
+        // We need the TResult type parameter so the compiler can recognize the second parameter as an expression tree
         public static void SetColumns<TSource, TResult>(this DataGrid dg, Expression<Func<TSource, TResult>> selector) {
             dg.Columns.Clear();
 

@@ -35,9 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ExpressionTreeToString, Version=1.5.67.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ExpressionTreeToString.1.5.67\lib\netstandard2.0\ExpressionTreeToString.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />

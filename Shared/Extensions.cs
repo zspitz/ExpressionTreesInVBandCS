@@ -57,5 +57,15 @@ namespace Shared {
             }
             return (false, expr);
         }
+
+        /// <summary>VB.NET currently doesn't support tuple unpacking. This is a workaround, and should only be used from VB.NET</summary>
+        public static void Unpack<T, T1>(this ValueTuple<T, T1> t, ref T item1, ref T1 item2) => (item1, item2) = t;
+
+        /// <summary>VB.NET currently doesn't support tuple unpacking. This replaces tuple unpacking in a For Each loop, and should only be used from VB.NET</summary>
+        public static void ForEachT<T1, T2>(this IEnumerable<(T1, T2)> src, Action<T1, T2> action) {
+            foreach (var (item1, item2) in src) {
+                action(item1, item2);
+            }
+        }
     }
 }
