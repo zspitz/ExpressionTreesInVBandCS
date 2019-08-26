@@ -18,7 +18,7 @@ namespace CSharp {
             RunSample(() => Figure5_BlocksAssignmentsStatements());
             RunSample(() => Figure6_QueryableWhere());
             RunSample(() => Inline_GetMethod());
-            //RunSample(() => Figure7_SimpleODataClient());
+            RunSample(() => Figure7_SimpleODataClient());
         }
 
         /**

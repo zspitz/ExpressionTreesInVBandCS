@@ -15,7 +15,7 @@ Module Program
         RunSample(Sub() Figure5_BlocksAssignmentsStatements())
         RunSample(Sub() Figure6_QueryableWhere())
         RunSample(Sub() Inline_GetMethod())
-        'RunSample(Sub() Figure7_SimpleODataClient())
+        RunSample(Sub() Figure7_SimpleODataClient())
     End Sub
 
     ''' <summary>Shows the objects in the expression tree for n + 42 == 27, using object and collection initializers</summary>

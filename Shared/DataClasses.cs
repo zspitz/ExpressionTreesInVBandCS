@@ -9,7 +9,14 @@ namespace Shared {
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
         public IEnumerable<Trip> Trips { get; set; }
-        public void Write() => Console.WriteLine($"LastName: {LastName}, FirstName: {FirstName}, DOB: {DateOfBirth:D}");
+
+        /// <summary>OData Persons don't have a DateOfBirth property</summary>
+        public void Write(bool withDateOfBirth = false) {
+            var toWrite = 
+                withDateOfBirth ? $"LastName: {LastName}, FirstName: {FirstName}, DOB: {DateOfBirth:D}" :
+                $"LastName: {LastName}, FirstName: {FirstName}";
+            Console.WriteLine(toWrite);
+        }
     }
 
     public class Trip {
