@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq.Expressions;
 using System.Reflection;
 using static System.Linq.Expressions.Expression;
+using static Shared.LikePattern;
 
 namespace CSharp_LikeVisitor {
     public class LikeVisitor : ExpressionVisitor {
@@ -28,21 +29,8 @@ namespace CSharp_LikeVisitor {
             // If the pattern is not a string, say a number or date, we're not going to replace
             if (patternExpression is ConstantExpression cexpr && patternExpression.Type == typeof(string)) {
                 var oldPattern = (string)cexpr.Value;
-                var newPattern = oldPattern.Replace("*", "%");
-
-                // TODO implement full replacement here
-
-                // ? -- any single character
-                // * -- Zero or more characters
-                // # -- Any sngle digit
-                // [charlist] -- Any single character in charlist
-                // [!charlist] -- Any single character not in charlist
-                // [a-z] range of characters
-                // hyphen out of range matches itself
-                // special characters -- wrap in [] to match ("]" can't be used within a group, only outside a group)
-                // digraph handling?
-
-
+                var tokenized = ParseVBLike(oldPattern);
+                var newPattern = GetSQLLike(tokenized);
 
                 patternExpression = Constant(newPattern);
                 argExpression =

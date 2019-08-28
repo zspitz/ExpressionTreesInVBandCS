@@ -67,5 +67,15 @@ namespace Shared {
                 action(item1, item2);
             }
         }
+
+        public static void Add<T1, T2>(this ICollection<(T1, T2)> lst, T1 t1, T2 t2) => lst.Add((t1, t2));
+
+        public static bool All<T1, T2>(this IEnumerable<(T1, T2)> src, Func<T1, T2, bool> predicate) => src.All(x => predicate(x.Item1, x.Item2));
+
+        public static string Joined<T>(this IEnumerable<T> source, string delimiter = ",", Func<T, string> selector = null) {
+            if (source == null) { return ""; }
+            if (selector == null) { return string.Join(delimiter, source); }
+            return string.Join(delimiter, source.Select(selector));
+        }
     }
 }

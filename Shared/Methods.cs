@@ -22,10 +22,14 @@ namespace Shared {
             Console.ReadKey(true);
         }
 
-        /// <summary>This is a workaround for Visual Basic, which currently doesn't support pattern matching. Return False if the match has failed; if the action returns True or null, the match is considered to have succeeded.</summary>
-        public static bool ExecIfType<T>(object toTest, Func<T, bool?> action) {
+        /// <summary>
+        /// This is a workaround for Visual Basic, which currently doesn't support pattern matching.<br/>
+        /// Returns True if the match is successful, and False if not.<br/>
+        /// The match is considered successful only if the test object is of type T, and the passed-in delegate returns True or Nothing.
+        /// </summary>
+        public static bool ExecIfType<T>(object toTest, Func<T, bool?> fn) {
             if (!(toTest is T matched)) { return false; }
-            var ret = action(matched);
+            var ret = fn(matched);
             if (ret.HasValue && !ret.Value) { return false; }
             return true;
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Shared {
@@ -121,5 +122,7 @@ namespace Shared {
                 return _dbPath;
             }
         }
+
+        public static T IIFE<T>(Func<T> fn) => fn();
     }
 }

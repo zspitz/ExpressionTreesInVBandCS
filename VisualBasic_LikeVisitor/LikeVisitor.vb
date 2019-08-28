@@ -1,6 +1,7 @@
 ﻿Imports System.Data.Entity
 Imports System.Reflection
 Imports Microsoft.VisualBasic.CompilerServices
+Imports [Shared].LikePattern
 
 Public Class LikeVisitor
     Inherits ExpressionVisitor
@@ -30,9 +31,8 @@ Public Class LikeVisitor
                                                                  If patternExpression.Type <> GetType(String) Then Return False
 
                                                                  Dim oldPattern = CType(cexpr.Value, String)
-                                                                 Dim newPattern = oldPattern.Replace("*", "%")
-
-                                                                 'TODO see C# implementation details
+                                                                 Dim tokenized = ParseVBLike(oldPattern)
+                                                                 Dim newPattern = GetSQLLike(tokenized)
 
                                                                  patternExpression = Constant(newPattern)
                                                                  argExpression = If(
