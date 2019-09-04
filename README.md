@@ -1,6 +1,6 @@
 # Sample code for _Expression Trees in Visual Basic and C#_
 
-This repo contains accompanying samples for _Expression Trees in Visual Basic and C#_, an MSDN Magazine article which is scheduled to appear in the September 2019 issue.
+This repo contains accompanying samples for [_Expression Trees in Visual Basic and C#_](https://msdn.microsoft.com/en-us/magazine/mt833513), an MSDN Magazine article which appeared in the September 2019 issue.
 
 All the samples are available in both a C# version and a VB.NET version (except for the sample demonstrating the usage of the `Like` operator rewrite, because C# doesn't have the `Like` operator).
 
