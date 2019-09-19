@@ -29,7 +29,7 @@ The project structure is as follows:
 | `_Shared.EF6` | The `LikeVisitor` sample uses EF6.  This project contains the `DbContext` and configuration classes |
 | `CSharp`<br/>`VisualBasic` | Short samples, each of which is encapsulated in a single method |
 | `CSharp_SetColumn`<br/>`VisualBasic_SetColumn` | <ul><li>Implements declaratively setting columns on a WPF DataGrid in code, using expression trees</li><li>`ParseFields` -- Parses the intended columns from an expression returning an array, anonymous type, or single property</li><li>`XamlBindingPathVisitor` -- Expression visitor that generates an object path usable with WPF databinding</li></ul> |
-| `CSharp_LikeVisitor`<br/>`VisualBasic_LikeVisitor` | Uses an expression visitor to rewrite Visual Basic's `Like` operator usages to EF's `DbFunctions.Like` method.<br/>Note that the actual running code is only in Visual Basic, as C# doesn't have the `Like` operator |
+| `CSharp_LikeVisitor`<br/>`VisualBasic_LikeVisitor` | Uses an expression visitor to rewrite Visual Basic's `Like` operator usages to EF's `DbFunctions.Like` method.<br/>Note that while the visitor is implemented in both C# and Visual Basic, the calling code is only in Visual Basic, as C# doesn't have the `Like` operator |
 
 ## TODO
 
